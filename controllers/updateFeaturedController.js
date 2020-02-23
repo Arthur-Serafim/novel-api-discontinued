@@ -1,4 +1,19 @@
 const pupperteer = require("puppeteer");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const Featured = require("../models/Featured");
+
+dotenv.config();
+
+let password = process.env.PASSWORD;
+const DATABASE_URL = `mongodb+srv://ReadWrite:${password}@mern-klqx1.mongodb.net/test?retryWrites=true&w=majority`;
+
+const connectDb = () => {
+  return mongoose.connect(DATABASE_URL, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true
+  });
+};
 
 let urls = [
   "https://m.wuxiaworld.co/top/week.html",
@@ -15,7 +30,7 @@ async function handleScrape(BASE_URL) {
   await page.setDefaultNavigationTimeout(0);
   await page.goto(BASE_URL);
 
-  const textContent = await page.evaluate(() => {
+  const data = await page.evaluate(() => {
     const elements = document.querySelectorAll("div.hot_sale");
     const category = document.querySelector("a.on").textContent.trim();
     let accumulator = [];
@@ -38,10 +53,10 @@ async function handleScrape(BASE_URL) {
 
   await browser.close();
 
-  return textContent;
+  return data;
 }
 
-async function listFeatured() {
+async function updateFeatured() {
   let response = [];
   for (url of urls) {
     try {
@@ -52,7 +67,28 @@ async function listFeatured() {
       continue;
     }
   }
+
+  for (item of response) {
+    await connectDb();
+    const db = mongoose.connection;
+
+    let featured = new Featured({
+      title: item.title,
+      image: item.image,
+      link: item.link,
+      category: item.category
+    });
+
+    try {
+      await featured.save();
+    } catch (error) {
+      console.error(error.message);
+    }
+
+    await db.close();
+  }
+
   return response;
 }
 
-module.exports = listFeatured;
+module.exports = updateFeatured;

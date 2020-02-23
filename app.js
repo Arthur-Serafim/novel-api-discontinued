@@ -6,8 +6,9 @@ var logger = require("morgan");
 var indexRouter = require("./routes/index");
 var listNovelsRouter = require("./routes/listNovels");
 var listChapterRouter = require("./routes/listChapters");
-var listFeaturedRouter = require("./routes/listFeatured");
+var updateFeaturedRouter = require("./routes/updateFeatured");
 var getChapterContentRouter = require("./routes/getChapterContent");
+var listFeaturedRouter = require("./routes/listFeatured");
 
 var app = express();
 
@@ -20,7 +21,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/list", listNovelsRouter);
 app.use("/list/chapters", listChapterRouter);
-app.use("/list/featured", listFeaturedRouter);
+app.use("/update/featured", updateFeaturedRouter);
 app.use("/chapter/content", getChapterContentRouter);
+app.use("/list/featured", listFeaturedRouter);
 
 module.exports = app;
