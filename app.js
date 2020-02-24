@@ -1,19 +1,21 @@
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const cors = require("cors");
 
-var indexRouter = require("./routes/index");
-var listNovelsRouter = require("./routes/listNovels");
-var listChapterRouter = require("./routes/listChapters");
-var updateFeaturedRouter = require("./routes/updateFeatured");
-var getChapterContentRouter = require("./routes/getChapterContent");
-var listFeaturedRouter = require("./routes/listFeatured");
-var filterRouter = require("./routes/filter");
-var getNovelRouter = require("./routes/getNovel");
+const indexRouter = require("./routes/index");
+const listNovelsRouter = require("./routes/listNovels");
+const listChapterRouter = require("./routes/listChapters");
+const updateFeaturedRouter = require("./routes/updateFeatured");
+const getChapterContentRouter = require("./routes/getChapterContent");
+const listFeaturedRouter = require("./routes/listFeatured");
+const filterRouter = require("./routes/filter");
+const getNovelRouter = require("./routes/getNovel");
 
-var app = express();
+const app = express();
 
+app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
