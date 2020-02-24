@@ -4,6 +4,7 @@ async function filter(novel) {
   let BASE_URL = `https://m.wuxiaworld.co`;
   const browser = await pupperteer.launch();
   const page = await browser.newPage();
+
   await page.setDefaultNavigationTimeout(0);
   await page.goto(BASE_URL);
 

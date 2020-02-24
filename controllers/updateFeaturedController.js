@@ -27,6 +27,19 @@ let urls = [
 async function handleScrape(BASE_URL) {
   const browser = await pupperteer.launch();
   const page = await browser.newPage();
+
+  await page.setRequestInterception(true);
+
+  page.on("request", request => {
+    if (
+      ["stylesheet", "font", "script"].indexOf(request.resourceType()) !== -1
+    ) {
+      request.abort();
+    } else {
+      request.continue();
+    }
+  });
+
   await page.setDefaultNavigationTimeout(0);
   await page.goto(BASE_URL);
 
@@ -68,10 +81,11 @@ async function updateFeatured() {
     }
   }
 
-  for (item of response) {
-    await connectDb();
-    const db = mongoose.connection;
+  await connectDb();
+  const db = mongoose.connection;
+  await Featured.deleteMany({});
 
+  for (item of response) {
     let featured = new Featured({
       title: item.title,
       image: item.image,
@@ -84,9 +98,9 @@ async function updateFeatured() {
     } catch (error) {
       console.error(error.message);
     }
-
-    await db.close();
   }
+
+  await db.close();
 
   return response;
 }

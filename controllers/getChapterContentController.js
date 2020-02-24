@@ -1,11 +1,25 @@
-const pupperteer = require("puppeteer");
+const puppeteer = require("puppeteer");
 
 async function getChapterContent(link, chapter) {
-  console.log("Getting chapter chapter");
   let BASE_URL = `https://m.wuxiaworld.co${link}${chapter}`;
 
-  const browser = await pupperteer.launch();
+  const browser = await puppeteer.launch();
   const page = await browser.newPage();
+
+  await page.setRequestInterception(true);
+
+  page.on("request", request => {
+    if (
+      ["image", "stylesheet", "font", "script"].indexOf(
+        request.resourceType()
+      ) !== -1
+    ) {
+      request.abort();
+    } else {
+      request.continue();
+    }
+  });
+
   await page.setDefaultNavigationTimeout(0);
   await page.goto(BASE_URL);
 
