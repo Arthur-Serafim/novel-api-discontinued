@@ -9,6 +9,7 @@ var listChapterRouter = require("./routes/listChapters");
 var updateFeaturedRouter = require("./routes/updateFeatured");
 var getChapterContentRouter = require("./routes/getChapterContent");
 var listFeaturedRouter = require("./routes/listFeatured");
+var filterRouter = require("./routes/filter");
 
 var app = express();
 
@@ -24,5 +25,6 @@ app.use("/list/chapters", listChapterRouter);
 app.use("/update/featured", updateFeaturedRouter);
 app.use("/chapter/content", getChapterContentRouter);
 app.use("/list/featured", listFeaturedRouter);
+app.use("/filter", filterRouter);
 
 module.exports = app;
