@@ -22,6 +22,7 @@ async function getNovel(novel) {
 
   let response = page.evaluate(() => {
     let data = document.querySelector("div.synopsisArea_detail");
+    let synopsis = document.querySelector("p.review").textContent.trim();
 
     let title = document.querySelector("span.title").textContent;
     let author = data.childNodes[3].textContent.trim().split("Author：")[1];
@@ -36,7 +37,8 @@ async function getNovel(novel) {
       category,
       image,
       status,
-      update
+      update,
+      synopsis
     };
 
     return novel;
