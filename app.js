@@ -23,12 +23,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
+app.use("/filter", filterRouter);
 app.use("/list", listNovelsRouter);
 app.use("/list/chapters", listChapterRouter);
+app.use("/list/featured", listFeaturedRouter);
 app.use("/update/featured", updateFeaturedRouter);
 app.use("/chapter/content", getChapterContentRouter);
-app.use("/list/featured", listFeaturedRouter);
-app.use("/filter", filterRouter);
 app.use("/get/novel", getNovelRouter);
 
 module.exports = app;

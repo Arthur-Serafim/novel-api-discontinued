@@ -8,7 +8,7 @@ const { check, validationResult } = require("express-validator");
 router.get(
   "/",
   [
-    check("novel", "Novel is required")
+    check("link", "Link is required")
       .not()
       .isEmpty()
   ],
@@ -19,9 +19,9 @@ router.get(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { novel } = req.body;
+    const { link } = req.body;
     try {
-      const response = await getNovel(novel);
+      const response = await getNovel(link);
       res.json(response);
     } catch (error) {
       console.error(error.message);
