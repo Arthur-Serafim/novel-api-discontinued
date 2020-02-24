@@ -53,8 +53,19 @@ async function handleScrape(BASE_URL) {
       let title = item.querySelector("a p.title").textContent.trim();
       let image = item.querySelector("a img").getAttribute("data-original");
       let link = item.querySelector("a").getAttribute("href");
+      let synopsis = item
+        .querySelector("p.review")
+        .textContent.trim()
+        .split("Introduce：")[1]
+        .split("Description")
+        .join("");
+      let author = item
+        .querySelector("p.author")
+        .textContent.trim()
+        .split("Author：")
+        .join("");
 
-      accumulator = [...accumulator, { title, image, link }];
+      accumulator = [...accumulator, { title, image, link, synopsis, author }];
     }
 
     for (item of accumulator) {
@@ -90,7 +101,9 @@ async function updateFeatured() {
       title: item.title,
       image: item.image,
       link: item.link,
-      category: item.category
+      category: item.category,
+      synopsis: item.synopsis,
+      author: item.author
     });
 
     try {
