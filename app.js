@@ -5,12 +5,13 @@ const logger = require("morgan");
 const cors = require("cors");
 
 const indexRouter = require("./routes/index");
+const filterRouter = require("./routes/filter");
 const listNovelsRouter = require("./routes/listNovels");
 const listChapterRouter = require("./routes/listChapters");
+const listFeaturedRouter = require("./routes/listFeatured");
+const listCategoryRouter = require("./routes/listByCategory");
 const updateFeaturedRouter = require("./routes/updateFeatured");
 const getChapterContentRouter = require("./routes/getChapterContent");
-const listFeaturedRouter = require("./routes/listFeatured");
-const filterRouter = require("./routes/filter");
 const getNovelRouter = require("./routes/getNovel");
 
 const app = express();
@@ -27,6 +28,7 @@ app.use("/filter", filterRouter);
 app.use("/list", listNovelsRouter);
 app.use("/list/chapters", listChapterRouter);
 app.use("/list/featured", listFeaturedRouter);
+app.use("/list/category", listCategoryRouter);
 app.use("/update/featured", updateFeaturedRouter);
 app.use("/chapter/content", getChapterContentRouter);
 app.use("/get/novel", getNovelRouter);
