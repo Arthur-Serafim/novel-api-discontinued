@@ -5,7 +5,7 @@ const { check, validationResult } = require("express-validator");
 
 /* GET novels listing. */
 // @Route /list
-router.get(
+router.post(
   "/",
   [
     check("novel", "Novel is required")

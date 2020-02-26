@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const listNovel = require("../controllers/listNovelControler");
+const listCompleted = require("../controllers/listCompletedController");
 const { check, validationResult } = require("express-validator");
 
 /* GET novels listing. */
@@ -21,7 +21,7 @@ router.post(
 
     const { page } = req.body;
     try {
-      const response = await listNovel(page);
+      const response = await listCompleted(page);
       res.json(response);
     } catch (error) {
       console.error(error.message);

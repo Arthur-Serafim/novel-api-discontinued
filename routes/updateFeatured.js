@@ -4,7 +4,7 @@ const updateFeatured = require("../controllers/updateFeaturedController");
 
 /* GET novels listing. */
 // @Route /list
-router.get("/", async (req, res, next) => {
+router.put("/", async (req, res, next) => {
   const response = await updateFeatured();
   res.json(response);
 });
