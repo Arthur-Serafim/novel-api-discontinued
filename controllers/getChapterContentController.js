@@ -28,6 +28,9 @@ async function getChapterContent(link, chapter) {
       let content = document
         .querySelector("div#chaptercontent")
         .innerText.split(`a title=”” href`)[0]
+        .trim()
+        .split("Next Chapter")
+        .join("")
         .trim();
       let title = document.querySelector("span.title").textContent;
 

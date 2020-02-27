@@ -1,7 +1,7 @@
 const pupperteer = require("puppeteer");
 
-async function getNovel(novel) {
-  let BASE_URL = `https://m.wuxiaworld.co${novel}`;
+async function getNovel(link) {
+  let BASE_URL = `https://m.wuxiaworld.co${link}`;
   const browser = await pupperteer.launch();
   const page = await browser.newPage();
 
@@ -20,9 +20,13 @@ async function getNovel(novel) {
   await page.setDefaultNavigationTimeout(0);
   await page.goto(BASE_URL);
 
-  let response = page.evaluate(() => {
+  let response = page.evaluate(link => {
     let data = document.querySelector("div.synopsisArea_detail");
-    let synopsis = document.querySelector("p.review").textContent.trim();
+    let synopsis = document
+      .querySelector("p.review")
+      .textContent.trim()
+      .split("Description")
+      .join("");
 
     let title = document.querySelector("span.title").textContent;
     let author = data.childNodes[3].textContent.trim().split("Author：")[1];
@@ -38,11 +42,12 @@ async function getNovel(novel) {
       image,
       status,
       update,
-      synopsis
+      synopsis,
+      link
     };
 
     return novel;
-  });
+  }, link);
 
   return response;
 }

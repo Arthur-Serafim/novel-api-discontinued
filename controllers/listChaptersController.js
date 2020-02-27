@@ -26,12 +26,15 @@ async function listChapters(link) {
   const response = await page.evaluate(() => {
     let accumulator = [];
     let elements = document.querySelectorAll("div#chapterlist p a");
+    let counter = 1;
     for (item of elements) {
       if (item.getAttribute("href") !== "#bottom") {
         let chapter = {
           title: item.textContent,
-          link: item.getAttribute("href")
+          link: item.getAttribute("href"),
+          number: counter
         };
+        counter++;
         accumulator.push(chapter);
       }
     }
