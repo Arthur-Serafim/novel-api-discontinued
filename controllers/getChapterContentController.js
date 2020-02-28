@@ -33,10 +33,17 @@ async function getChapterContent(link, chapter) {
         .join("")
         .trim();
       let title = document.querySelector("span.title").textContent;
+      let previousLink = document.querySelector("#pt_prev").href.split("/");
+      previousLink = previousLink[previousLink.length - 1];
+
+      let nextLink = document.querySelector("#pt_next").href.split("/");
+      nextLink = nextLink[nextLink.length - 1];
 
       let response = {
         title,
-        content
+        content,
+        previousLink,
+        nextLink
       };
 
       return response;
