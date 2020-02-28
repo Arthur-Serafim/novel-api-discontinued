@@ -2,7 +2,7 @@ const pupperteer = require("puppeteer");
 
 async function getNovel(link) {
   let BASE_URL = `https://m.wuxiaworld.co${link}`;
-  const browser = await pupperteer.launch();
+  const browser = await pupperteer.launch({ args: ["--no-sandbox"] });
   const page = await browser.newPage();
 
   await page.setRequestInterception(true);

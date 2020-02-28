@@ -1,7 +1,7 @@
 const pupperteer = require("puppeteer");
 
 async function handleScrape(BASE_URL) {
-  const browser = await pupperteer.launch();
+  const browser = await pupperteer.launch({ args: ["--no-sandbox"] });
   const page = await browser.newPage();
 
   await page.setRequestInterception(true);
@@ -22,7 +22,6 @@ async function handleScrape(BASE_URL) {
   const data = await page.evaluate(() => {
     const elements = document.querySelectorAll("div.hot_sale");
     let accumulator = [];
-    let response = [];
 
     for (item of elements) {
       let title = item.querySelector("a p.title").textContent.trim();

@@ -1,8 +1,8 @@
-const pupperteer = require("puppeteer");
+const puppeteer = require("puppeteer");
 
 async function filter(novel) {
   let BASE_URL = `https://m.wuxiaworld.co`;
-  const browser = await pupperteer.launch();
+  const browser = await puppeteer.launch({ args: ["--no-sandbox"] });
   const page = await browser.newPage();
 
   await page.setDefaultNavigationTimeout(0);

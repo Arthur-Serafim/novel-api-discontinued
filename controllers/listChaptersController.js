@@ -3,7 +3,7 @@ const pupperteer = require("puppeteer");
 async function listChapters(link) {
   let BASE_URL = `https://m.wuxiaworld.co${link}all.html`;
 
-  const browser = await pupperteer.launch();
+  const browser = await pupperteer.launch({ args: ["--no-sandbox"] });
   const page = await browser.newPage();
 
   await page.setRequestInterception(true);

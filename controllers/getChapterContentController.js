@@ -3,7 +3,7 @@ const puppeteer = require("puppeteer");
 async function getChapterContent(link, chapter) {
   let BASE_URL = `https://m.wuxiaworld.co${link}${chapter}`;
 
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({ args: ["--no-sandbox"] });
   const page = await browser.newPage();
 
   await page.setRequestInterception(true);

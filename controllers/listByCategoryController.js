@@ -1,7 +1,7 @@
 const pupperteer = require("puppeteer");
 
 async function handleScrape(BASE_URL) {
-  const browser = await pupperteer.launch();
+  const browser = await pupperteer.launch({ args: ["--no-sandbox"] });
   const page = await browser.newPage();
 
   await page.setRequestInterception(true);
