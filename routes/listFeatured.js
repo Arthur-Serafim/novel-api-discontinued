@@ -18,8 +18,6 @@ const connectDb = () => {
 
 router.get("/", async (req, res) => {
   connectDb();
-  const db = mongoose.connection;
-
   let categories = [
     "All",
     "Xianxia",
@@ -40,10 +38,6 @@ router.get("/", async (req, res) => {
   }
 
   res.json(response);
-
-  setTimeout(() => {
-    db.close();
-  }, 3000);
 });
 
 module.exports = router;
