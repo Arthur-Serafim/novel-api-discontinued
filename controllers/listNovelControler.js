@@ -47,6 +47,8 @@ async function listNovel(pagination) {
     return accumulator;
   });
 
+  await browser.close();
+
   return {
     data: response
   };

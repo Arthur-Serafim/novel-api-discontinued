@@ -6,7 +6,7 @@ async function handleScrape(BASE_URL) {
 
   await page.setRequestInterception(true);
 
-  page.on("request", request => {
+  page.on("request", (request) => {
     if (
       ["stylesheet", "font", "script"].indexOf(request.resourceType()) !== -1
     ) {
@@ -63,7 +63,8 @@ async function listByCategory(category, page) {
     xianxia: "https://m.wuxiaworld.co/category/2/",
     romantic: "https://m.wuxiaworld.co/category/3/",
     scifi: "https://m.wuxiaworld.co/category/4/",
-    historical: "https://m.wuxiaworld.co/category/5/"
+    historical: "https://m.wuxiaworld.co/category/5/",
+    game: "https://m.wuxiaworld.co/category/6/",
   };
 
   let url = `${categories[category]}${page}.html`;

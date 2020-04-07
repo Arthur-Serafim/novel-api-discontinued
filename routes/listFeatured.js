@@ -12,7 +12,7 @@ const DATABASE_URL = `mongodb+srv://ReadWrite:${password}@mern-klqx1.mongodb.net
 const connectDb = () => {
   return mongoose.connect(DATABASE_URL, {
     useUnifiedTopology: true,
-    useNewUrlParser: true
+    useNewUrlParser: true,
   });
 };
 
@@ -26,7 +26,7 @@ router.get("/", async (req, res) => {
     "Romantic",
     "Historical",
     "Sci-fi",
-    "Game"
+    "Game",
   ];
   let response = {};
 
@@ -41,7 +41,9 @@ router.get("/", async (req, res) => {
 
   res.json(response);
 
-  await db.close();
+  setTimeout(() => {
+    db.close();
+  }, 3000);
 });
 
 module.exports = router;

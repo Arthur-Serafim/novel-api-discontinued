@@ -10,7 +10,7 @@ async function filter(novel) {
 
   await page.waitFor("input.searchForm_input");
 
-  await page.evaluate(async novel => {
+  await page.evaluate(async (novel) => {
     let input = await document.querySelector("input.searchForm_input");
     input.value = novel;
   }, novel);
@@ -37,13 +37,15 @@ async function filter(novel) {
         author,
         link,
         category,
-        relevance
+        relevance,
       };
 
       accumulator.push(novel);
     }
     return accumulator;
   });
+  
+  await browser.close();
 
   return response;
 }

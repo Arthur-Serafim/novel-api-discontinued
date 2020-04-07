@@ -8,7 +8,7 @@ async function getChapterContent(link, chapter) {
 
   await page.setRequestInterception(true);
 
-  page.on("request", request => {
+  page.on("request", (request) => {
     if (
       ["image", "stylesheet", "font", "script"].indexOf(
         request.resourceType()
@@ -43,7 +43,7 @@ async function getChapterContent(link, chapter) {
         title,
         content,
         previousLink,
-        nextLink
+        nextLink,
       };
 
       return response;
@@ -52,6 +52,8 @@ async function getChapterContent(link, chapter) {
       return "";
     }
   });
+
+  await browser.close();
 
   return data;
 }
