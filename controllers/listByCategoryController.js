@@ -51,8 +51,6 @@ async function handleScrape(BASE_URL) {
     return response;
   });
 
-  await browser.close();
-
   return data;
 }
 

@@ -11,7 +11,7 @@ const DATABASE_URL = `mongodb+srv://ReadWrite:${password}@mern-klqx1.mongodb.net
 const connectDb = () => {
   return mongoose.connect(DATABASE_URL, {
     useUnifiedTopology: true,
-    useNewUrlParser: true
+    useNewUrlParser: true,
   });
 };
 
@@ -21,7 +21,7 @@ let urls = [
   "https://m.wuxiaworld.co/top/week3.html",
   "https://m.wuxiaworld.co/top/week4.html",
   "https://m.wuxiaworld.co/top/week5.html",
-  "https://m.wuxiaworld.co/top/week6.html"
+  "https://m.wuxiaworld.co/top/week6.html",
 ];
 
 async function handleScrape(BASE_URL) {
@@ -30,7 +30,7 @@ async function handleScrape(BASE_URL) {
 
   await page.setRequestInterception(true);
 
-  page.on("request", request => {
+  page.on("request", (request) => {
     if (
       ["stylesheet", "font", "script"].indexOf(request.resourceType()) !== -1
     ) {
@@ -103,7 +103,7 @@ async function updateFeatured() {
       link: item.link,
       category: item.category,
       synopsis: item.synopsis,
-      author: item.author
+      author: item.author,
     });
 
     try {

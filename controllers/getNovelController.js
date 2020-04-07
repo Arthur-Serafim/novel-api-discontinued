@@ -49,8 +49,6 @@ async function getNovel(link) {
     return novel;
   }, link);
 
-  await browser.close();
-
   return response;
 }
 

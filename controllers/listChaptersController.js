@@ -42,8 +42,6 @@ async function listChapters(link) {
     return accumulator;
   });
 
-  await browser.close();
-
   return response;
 }
 

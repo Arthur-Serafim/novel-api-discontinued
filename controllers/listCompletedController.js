@@ -45,8 +45,6 @@ async function handleScrape(BASE_URL) {
     return accumulator;
   });
 
-  await browser.close();
-
   return data;
 }
 

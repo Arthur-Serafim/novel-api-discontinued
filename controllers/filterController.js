@@ -44,8 +44,6 @@ async function filter(novel) {
     }
     return accumulator;
   });
-  
-  await browser.close();
 
   return response;
 }

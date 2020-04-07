@@ -53,8 +53,6 @@ async function getChapterContent(link, chapter) {
     }
   });
 
-  await browser.close();
-
   return data;
 }
 module.exports = getChapterContent;
