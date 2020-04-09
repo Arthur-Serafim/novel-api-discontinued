@@ -1,58 +1,59 @@
-const puppeteer = require("puppeteer");
+async function getChapterContent(link, chapter, browser) {
+  try {
+    let BASE_URL = `https://m.wuxiaworld.co${link}${chapter}`;
 
-async function getChapterContent(link, chapter) {
-  let BASE_URL = `https://m.wuxiaworld.co${link}${chapter}`;
+    const page = await browser.newPage();
 
-  const browser = await puppeteer.launch({ args: ["--no-sandbox"] });
-  const page = await browser.newPage();
+    await page.setRequestInterception(true);
 
-  await page.setRequestInterception(true);
+    page.on("request", (request) => {
+      if (
+        ["image", "stylesheet", "font", "script"].indexOf(
+          request.resourceType()
+        ) !== -1
+      ) {
+        request.abort();
+      } else {
+        request.continue();
+      }
+    });
 
-  page.on("request", (request) => {
-    if (
-      ["image", "stylesheet", "font", "script"].indexOf(
-        request.resourceType()
-      ) !== -1
-    ) {
-      request.abort();
-    } else {
-      request.continue();
-    }
-  });
+    await page.setDefaultNavigationTimeout(0);
+    await page.goto(BASE_URL);
 
-  await page.setDefaultNavigationTimeout(0);
-  await page.goto(BASE_URL);
+    const data = await page.evaluate(() => {
+      try {
+        let content = document
+          .querySelector("div#chaptercontent")
+          .innerText.split(`a title=”” href`)[0]
+          .trim()
+          .split("Next Chapter")
+          .join("")
+          .trim();
+        let title = document.querySelector("span.title").textContent;
+        let previousLink = document.querySelector("#pt_prev").href.split("/");
+        previousLink = previousLink[previousLink.length - 1];
 
-  const data = await page.evaluate(() => {
-    try {
-      let content = document
-        .querySelector("div#chaptercontent")
-        .innerText.split(`a title=”” href`)[0]
-        .trim()
-        .split("Next Chapter")
-        .join("")
-        .trim();
-      let title = document.querySelector("span.title").textContent;
-      let previousLink = document.querySelector("#pt_prev").href.split("/");
-      previousLink = previousLink[previousLink.length - 1];
+        let nextLink = document.querySelector("#pt_next").href.split("/");
+        nextLink = nextLink[nextLink.length - 1];
 
-      let nextLink = document.querySelector("#pt_next").href.split("/");
-      nextLink = nextLink[nextLink.length - 1];
+        let response = {
+          title,
+          content,
+          previousLink,
+          nextLink,
+        };
 
-      let response = {
-        title,
-        content,
-        previousLink,
-        nextLink,
-      };
+        return response;
+      } catch (error) {
+        console.error(error.message);
+        return "";
+      }
+    });
 
-      return response;
-    } catch (error) {
-      console.error(error.message);
-      return "";
-    }
-  });
-
-  return data;
+    return data;
+  } catch (error) {
+    return { error: error.message };
+  }
 }
 module.exports = getChapterContent;
