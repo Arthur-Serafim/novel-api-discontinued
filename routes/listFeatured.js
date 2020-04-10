@@ -22,6 +22,7 @@ router.get("/", async (req, res) => {
     "All",
     "Xianxia",
     "Romantic",
+    "Fantasy",
     "Historical",
     "Sci-fi",
     "Game",
