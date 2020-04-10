@@ -86,12 +86,13 @@ async function handleScrape(BASE_URL, browser) {
 }
 
 async function updateFeatured() {
-  const browser = await pupperteer.launch({ args: ["--no-sandbox"] });
   let response = [];
   for (url of urls) {
     try {
+      const browser = await pupperteer.launch({ args: ["--no-sandbox"] });
       let data = await handleScrape(url, browser);
       response = [...response, ...data];
+      await browser.close();
     } catch (error) {
       console.error(error.message);
       continue;
@@ -119,7 +120,6 @@ async function updateFeatured() {
     }
   }
 
-  await browser.close();
   await db.close();
 
   return response;
