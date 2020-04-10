@@ -17,6 +17,7 @@ const connectDb = () => {
 
 let urls = [
   "https://m.wuxiaworld.co/top/week.html",
+  "https://m.wuxiaworld.co/top/week1.html",
   "https://m.wuxiaworld.co/top/week2.html",
   "https://m.wuxiaworld.co/top/week3.html",
   "https://m.wuxiaworld.co/top/week4.html",
