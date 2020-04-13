@@ -53,12 +53,7 @@ async function handleScrape(BASE_URL, browser) {
 }
 
 async function listCompleted(page, browser) {
-  let BASE_URL;
-  if (page === 0) {
-    BASE_URL = "https://m.wuxiaworld.co/completed/";
-  } else {
-    BASE_URL = `https://m.wuxiaworld.co/completed_${page}/`;
-  }
+  let BASE_URL = `https://m.wuxiaworld.co/completed_${page}/`;
 
   try {
     let data = await handleScrape(BASE_URL, browser);
