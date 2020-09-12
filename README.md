@@ -1,3 +1,6 @@
+# DISCONTINUED
+Due to the recent change on wuxiaworld.co interface, the api no longer works, and fixing it has turned not viable. If you'd like to, feel free to continue this project on your own.
+
 # Novel API
 This API makes requests to m.wuxiaworld.co, a novel indexer, and returns the data you want. Every request, except the update featured route, is made in runtime, so the original server is not overloaded with requests.
 
